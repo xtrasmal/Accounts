@@ -1,0 +1,127 @@
+<?php namespace App\Modules\Accounts\Models;
+
+use Illuminate\Auth\UserInterface;
+use Ill\Core\Events\EventGenerator;
+use Illuminate\Database\Eloquent\Model;
+use App\Modules\Accounts\Events\UserReadEvent;
+use App\Modules\Accounts\Events\UserDeletedEvent;
+use App\Modules\Accounts\Events\UserUpdatedEvent;
+use App\Modules\Accounts\Events\UserCreatedEvent;
+use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
+class User extends Model implements UserInterface, RemindableInterface
+{
+    use EventGenerator;
+    use SoftDeletingTrait;
+
+    protected $guarded = [];
+    protected $dates = ['deleted_at'];
+
+    public static function register($attributes)
+    {
+
+        $user = new static([
+            'email'       => $attributes['email'],
+            'name'        => $attributes['name'],
+            'password'    => $attributes['password'],
+        ]);
+
+        return $user;
+
+    }
+
+    public function createUser($user)
+    {
+
+        $this->raise(new UserCreatedEvent($user));
+        return $user;
+
+    }
+
+    public function readUser($user)
+    {
+
+        $this->raise(new UserReadEvent($user));
+        return $user;
+
+    }
+
+    public function updateUser($user)
+    {
+
+        $this->raise(new UserUpdatedEvent($user));
+        return $user;
+
+    }
+
+    public function deleteUser($user)
+    {
+
+        $this->raise(new UserDeletedEvent($user));
+        return $user;
+
+    }
+
+    /**
+     * Get the e-mail address where password reminders are sent.
+     *
+     * @return string
+     */
+    public function getReminderEmail()
+    {
+
+    }
+
+    /**
+     * Get the unique identifier for the user.
+     *
+     * @return mixed
+     */
+    public function getAuthIdentifier()
+    {
+
+    }
+
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+
+    }
+
+    /**
+     * Get the token value for the "remember me" session.
+     *
+     * @return string
+     */
+    public function getRememberToken()
+    {
+
+    }
+
+    /**
+     * Set the token value for the "remember me" session.
+     *
+     * @param  string $value
+     * @return void
+     */
+    public function setRememberToken($value)
+    {
+
+    }
+
+    /**
+     * Get the column name for the "remember me" token.
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+
+    }
+
+}
