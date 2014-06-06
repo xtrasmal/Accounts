@@ -4,6 +4,7 @@ use Illuminate\Auth\UserInterface;
 use Ill\Core\Events\EventGenerator;
 use Illuminate\Database\Eloquent\Model;
 use App\Modules\Accounts\Events\UserReadEvent;
+use App\Modules\Accounts\Events\UsersReadEvent;
 use App\Modules\Accounts\Events\UserDeletedEvent;
 use App\Modules\Accounts\Events\UserUpdatedEvent;
 use App\Modules\Accounts\Events\UserCreatedEvent;
@@ -43,6 +44,14 @@ class User extends Model implements UserInterface, RemindableInterface
     {
 
         $this->raise(new UserReadEvent($user));
+        return $user;
+
+    }
+
+    public function readAllUsers($user)
+    {
+
+        $this->raise(new UsersReadEvent($user));
         return $user;
 
     }

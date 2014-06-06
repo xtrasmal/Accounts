@@ -23,11 +23,32 @@ class UserController extends BaseController
 
     public function readUser($id)
     {
-        $command = new ReadUserRequest($id);
+        $request = new ReadUserRequest($id);
+
+        $this->bus->execute($request);
+
+        return $this->redirectAction('UserViewController@singleUserView');
+
+    }
+
+    public function readAllUsers()
+    {
+        $request = new ReadAllUsersRequest();
+
+        $this->bus->execute($request);
+
+        return $this->redirectAction('UserViewController@allUsersView');
+
+    }
+
+    public function deleteUser($id)
+    {
+        $command = new DeleteUserCommand($id);
 
         $this->bus->execute($command);
 
-        // return Redirect::action('TicketController@getViewTicket');
+        return $this->redirectAction('UserViewController@allUsersView');
 
     }
+
 }

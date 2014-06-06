@@ -23,6 +23,13 @@ class EloquentUserRepository
 
     }
 
+    public function getAll()
+    {
+
+        return $this->model->all();
+
+    }
+
     public function save(Model $model)
     {
 

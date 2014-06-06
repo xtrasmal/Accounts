@@ -11,4 +11,11 @@ class UserViewController extends BaseController
         // echo 'henk';
 
     }
+
+    public function singleUserView()
+    {
+
+        // echo 'henk';
+
+    }
 }
