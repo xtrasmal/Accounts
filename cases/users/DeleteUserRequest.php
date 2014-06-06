@@ -1,6 +1,6 @@
 <?php namespace App\Modules\Accounts\Cases\Users;
 
-class DeleteUserCommand
+class DeleteUserRequest
 {
 
     public $id;
