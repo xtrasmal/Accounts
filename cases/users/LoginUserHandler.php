@@ -31,7 +31,8 @@ class LoginUserHandler implements HandlerInterface
 
         if (Auth::attempt(['email' => $command->email, 'password' => $command->password]))
         {
-            $user = Auth::user();
+            $user = new User();
+
             $user->loginUser($user);
 
             $this->dispatcher->dispatch($user->releaseEvents());

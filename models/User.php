@@ -1,5 +1,6 @@
 <?php namespace App\Modules\Accounts\Models;
 
+use App\Modules\Accounts\Events\UserLoggedInEvent;
 use Illuminate\Auth\UserInterface;
 use Ill\Core\Events\EventGenerator;
 use Illuminate\Database\Eloquent\Model;
@@ -72,6 +73,13 @@ class User extends Model implements UserInterface, RemindableInterface
 
     }
 
+    public function loginUser($user)
+    {
+
+        $this->raise(new UserLoggedInEvent($user));
+        return $user;
+
+    }
     /**
      * Get the e-mail address where password reminders are sent.
      *
