@@ -5,7 +5,7 @@ use App\Modules\Accounts\Models\User, Auth;
 use Ill\Core\CommandBus\Interfaces\HandlerInterface;
 use App\Modules\Accounts\Repositories\EloquentUserRepository;
 
-class LoginUserHandler implements HandlerInterface
+class RegisterUserHandler implements HandlerInterface
 {
 
     private $repo;
@@ -23,16 +23,16 @@ class LoginUserHandler implements HandlerInterface
     public function handle($command)
     {
 
-        if (Auth::attempt(['email' => $command->email, 'password' => $command->password]))
-        {
-            $user = new User();
+        $user = User::register([
+            'email'     => $command->email,
+            'name'      => $command->name,
+            'password'  => $command->password,
+        ]);
 
-            $user->loginUser($user);
-
-            $this->dispatcher->dispatch($user->releaseEvents());
-            return new LoginUserResponse($user);
-
-        }
+        $user->registerUser($user);
+        $this->dispatcher->dispatch($user->releaseEvents());
+        $this->repo->save($user);
+        return new RegisterUserResponse($user);
 
     }
 

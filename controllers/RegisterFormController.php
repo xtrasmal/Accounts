@@ -3,17 +3,17 @@
 use Illuminate\Support\MessageBag;
 use Ill\System\Base\BaseFormController;
 use Ill\Core\CommandBus\DefaultCommandBus;
-use App\Modules\Accounts\Models\LoginForm;
-use App\Modules\Accounts\Cases\Users\LoginUserRequest;
+use App\Modules\Accounts\Models\RegisterForm;
+use App\Modules\Accounts\Cases\Users\RegisterUserRequest;
 
-class LoginFormController extends BaseFormController
+class RegisterFormController extends BaseFormController
 {
 
-    public $form;
-    public $bus;
-    public $messages;
+    private $form;
+    private $bus;
+    private $messages;
 
-    public function __construct(LoginForm $form,
+    public function __construct(RegisterForm $form,
                                 DefaultCommandBus $bus,
                                 MessageBag $messages)
     {
@@ -21,11 +21,10 @@ class LoginFormController extends BaseFormController
         $this->form = $form;
         $this->bus = $bus;
         $this->messages = $messages;
-
     }
 
 
-    public function loginUser()
+    public function registerUser()
     {
         $input = $this->form->getInputData();
 
@@ -33,7 +32,9 @@ class LoginFormController extends BaseFormController
         {
             return $this->redirectBack(['errors' => $this->form->getErrors()]);
         }
-        $command = new LoginUserRequest(
+
+        $command = new RegisterUserRequest(
+            $input['name'],
             $input['email'],
             $input['password']
         );
@@ -44,13 +45,10 @@ class LoginFormController extends BaseFormController
             return $this->redirectRoute('accounts.register');
         } else{
 
-            $this->messages->add('login-errors', 'Could not log you in with the given credentials');
+            $this->messages->add('register-errors', 'The given emailaddress is already in use');
             return $this->redirectBack(['errors' => $this->messages]);
         }
 
-
-
     }
-
 
 }

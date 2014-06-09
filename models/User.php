@@ -1,6 +1,5 @@
 <?php namespace App\Modules\Accounts\Models;
 
-use App\Modules\Accounts\Events\UserLoggedInEvent;
 use Illuminate\Auth\UserInterface;
 use Ill\Core\Events\EventGenerator;
 use Illuminate\Database\Eloquent\Model;
@@ -9,8 +8,10 @@ use App\Modules\Accounts\Events\UsersReadEvent;
 use App\Modules\Accounts\Events\UserDeletedEvent;
 use App\Modules\Accounts\Events\UserUpdatedEvent;
 use App\Modules\Accounts\Events\UserCreatedEvent;
+use App\Modules\Accounts\Events\UserLoggedInEvent;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use App\Modules\Accounts\Events\UserRegisteredEvent;
 
 class User extends Model implements UserInterface, RemindableInterface
 {
@@ -80,6 +81,15 @@ class User extends Model implements UserInterface, RemindableInterface
         return $user;
 
     }
+
+    public function registerUser($user)
+    {
+
+        $this->raise(new UserRegisteredEvent($user));
+        return $user;
+
+    }
+
     /**
      * Get the e-mail address where password reminders are sent.
      *
@@ -88,6 +98,8 @@ class User extends Model implements UserInterface, RemindableInterface
     public function getReminderEmail()
     {
 
+        return $this->email;
+        
     }
 
     /**
@@ -98,6 +110,8 @@ class User extends Model implements UserInterface, RemindableInterface
     public function getAuthIdentifier()
     {
 
+        return $this->getKey();
+
     }
 
     /**
@@ -107,6 +121,8 @@ class User extends Model implements UserInterface, RemindableInterface
      */
     public function getAuthPassword()
     {
+
+        return $this->password;
 
     }
 
