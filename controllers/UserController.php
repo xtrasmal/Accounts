@@ -1,7 +1,9 @@
-<?php namespace App\Modules\Accounts\Controllers;
+<?php namespace Modules\Accounts\Controllers;
 
 use Ill\System\Base\BaseController;
-use App\Modules\Accounts\Cases\Users\CreateUserRequest;
+use Modules\Accounts\Cases\Users\CreateUserRequest;
+use Modules\Accounts\Cases\Users\ReadUserRequest;
+use Modules\Accounts\Cases\Users\ReadAllUsersRequest;
 use Illuminate\Support\Facades\Input;
 
 class UserController extends BaseController
@@ -23,9 +25,10 @@ class UserController extends BaseController
 
     public function readUser($id)
     {
+
         $request = new ReadUserRequest($id);
 
-        $this->bus->execute($request);
+        $response = $this->bus->execute($request);
 
         return $this->redirectAction('UserViewController@singleUserView');
 

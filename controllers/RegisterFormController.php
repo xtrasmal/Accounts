@@ -1,10 +1,11 @@
-<?php namespace App\Modules\Accounts\Controllers;
+<?php namespace Modules\Accounts\Controllers;
 
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Hash;
 use Ill\System\Base\BaseFormController;
 use Ill\Core\CommandBus\DefaultCommandBus;
-use App\Modules\Accounts\Models\RegisterForm;
-use App\Modules\Accounts\Cases\Users\RegisterUserRequest;
+use Modules\Accounts\Models\RegisterForm;
+use Modules\Accounts\Cases\Users\RegisterUserRequest;
 
 class RegisterFormController extends BaseFormController
 {
@@ -36,7 +37,7 @@ class RegisterFormController extends BaseFormController
         $command = new RegisterUserRequest(
             $input['name'],
             $input['email'],
-            $input['password']
+            Hash::make($input['password'])
         );
 
         $user = $this->bus->execute($command);

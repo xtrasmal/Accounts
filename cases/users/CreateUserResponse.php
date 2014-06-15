@@ -1,6 +1,6 @@
-<?php namespace App\Modules\Accounts\Cases\Users;
+<?php namespace Modules\Accounts\Cases\Users;
 
-use App\Modules\Accounts\Models\User;
+use Modules\Accounts\Models\User;
 
 class CreateUserResponse
 {

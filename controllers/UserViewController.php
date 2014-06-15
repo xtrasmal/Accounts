@@ -1,4 +1,4 @@
-<?php namespace App\Modules\Accounts\Controllers;
+<?php namespace Modules\Accounts\Controllers;
 
 use Ill\System\Base\BaseController, View;
 
@@ -29,7 +29,7 @@ class UserViewController extends BaseController
     public function singleUserView()
     {
 
-        // echo 'henk';
+        echo 'henk';
 
     }
 }

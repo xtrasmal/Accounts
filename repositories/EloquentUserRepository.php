@@ -1,7 +1,7 @@
-<?php namespace App\Modules\Accounts\Repositories;
+<?php namespace Modules\Accounts\Repositories;
 
 use Ill\Core\Events\EventGenerator;
-use App\Modules\Accounts\Models\User;
+use Modules\Accounts\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class EloquentUserRepository

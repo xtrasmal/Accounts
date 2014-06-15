@@ -1,4 +1,4 @@
-<?php namespace App\Modules\Accounts\Models;
+<?php namespace Modules\Accounts\Models;
 
 use Ill\System\Base\BaseForm;
 

@@ -1,10 +1,10 @@
-<?php namespace App\Modules\Accounts\Controllers;
+<?php namespace Modules\Accounts\Controllers;
 
 use Illuminate\Support\MessageBag;
 use Ill\System\Base\BaseFormController;
 use Ill\Core\CommandBus\DefaultCommandBus;
-use App\Modules\Accounts\Models\LoginForm;
-use App\Modules\Accounts\Cases\Users\LoginUserRequest;
+use Modules\Accounts\Models\LoginForm;
+use Modules\Accounts\Cases\Users\LoginUserRequest;
 
 class LoginFormController extends BaseFormController
 {

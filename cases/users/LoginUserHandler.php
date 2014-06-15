@@ -1,9 +1,9 @@
-<?php namespace App\Modules\Accounts\Cases\Users;
+<?php namespace Modules\Accounts\Cases\Users;
 
 use Ill\Core\Events\Dispatcher;
-use App\Modules\Accounts\Models\User, Auth;
+use Modules\Accounts\Models\User, Auth;
 use Ill\Core\CommandBus\Interfaces\HandlerInterface;
-use App\Modules\Accounts\Repositories\EloquentUserRepository;
+use Modules\Accounts\Repositories\EloquentUserRepository;
 
 class LoginUserHandler implements HandlerInterface
 {

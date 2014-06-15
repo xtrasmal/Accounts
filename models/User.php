@@ -1,17 +1,17 @@
-<?php namespace App\Modules\Accounts\Models;
+<?php namespace Modules\Accounts\Models;
 
 use Illuminate\Auth\UserInterface;
 use Ill\Core\Events\EventGenerator;
 use Illuminate\Database\Eloquent\Model;
-use App\Modules\Accounts\Events\UserReadEvent;
-use App\Modules\Accounts\Events\UsersReadEvent;
-use App\Modules\Accounts\Events\UserDeletedEvent;
-use App\Modules\Accounts\Events\UserUpdatedEvent;
-use App\Modules\Accounts\Events\UserCreatedEvent;
-use App\Modules\Accounts\Events\UserLoggedInEvent;
+use Modules\Accounts\Events\UserReadEvent;
+use Modules\Accounts\Events\UsersReadEvent;
+use Modules\Accounts\Events\UserDeletedEvent;
+use Modules\Accounts\Events\UserUpdatedEvent;
+use Modules\Accounts\Events\UserCreatedEvent;
+use Modules\Accounts\Events\UserLoggedInEvent;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use App\Modules\Accounts\Events\UserRegisteredEvent;
+use Modules\Accounts\Events\UserRegisteredEvent;
 
 class User extends Model implements UserInterface, RemindableInterface
 {
@@ -99,7 +99,7 @@ class User extends Model implements UserInterface, RemindableInterface
     {
 
         return $this->email;
-        
+
     }
 
     /**

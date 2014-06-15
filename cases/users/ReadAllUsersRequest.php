@@ -1,6 +1,6 @@
-<?php namespace App\Modules\Accounts\Cases\Users;
+<?php namespace Modules\Accounts\Cases\Users;
 
-class ReadUserRequest
+class ReadUserAllRequest
 {
 
     public $id;

@@ -1,6 +1,6 @@
-<?php namespace App\Modules\Accounts\Events;
+<?php namespace Modules\Accounts\Events;
 
-use App\Modules\Accounts\Models\User;
+use Modules\Accounts\Models\User;
 use Ill\Core\Events\Interfaces\EventInterface;
 
 class UserCreatedEvent implements EventInterface
