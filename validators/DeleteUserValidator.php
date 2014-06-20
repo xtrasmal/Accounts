@@ -1,7 +1,7 @@
-<?php namespace App\Modules\Accounts\Validators;
+<?php namespace Modules\Accounts\Validators;
 
 use Illuminate\Validation\Factory;
-use App\Modules\Accounts\Cases\Users\DeleteUserCommand;
+use Modules\Accounts\Cases\Users\DeleteUserCommand;
 use Ill\Core\CommandBus\Exceptions\CommandValidationFailedException;
 
 class DeleteUserValidator

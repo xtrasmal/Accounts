@@ -1,7 +1,7 @@
-<?php namespace App\Modules\Accounts\Validators;
+<?php namespace Modules\Accounts\Validators;
 
 use Illuminate\Validation\Factory;
-use App\Modules\Accounts\Cases\Users\LoginUserRequest;
+use Modules\Accounts\Cases\Users\LoginUserRequest;
 use Ill\Core\CommandBus\Exceptions\CommandValidationFailedException;
 
 class LoginUserValidator
