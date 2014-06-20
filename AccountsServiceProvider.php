@@ -20,7 +20,7 @@ class AccountsServiceProvider extends ServiceProvider {
         $this->app->booting(function()
         {
             $loader = AliasLoader::getInstance();
-            $loader->alias('User', 'App\Modules\Accounts\Models\User');
+            $loader->alias('User', 'Modules\Accounts\Models\User');
         });
 
 

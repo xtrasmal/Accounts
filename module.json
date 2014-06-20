@@ -1,4 +1,4 @@
 {
     "enabled": true,
-    "provider": "App\\Modules\\Accounts\\AccountsServiceProvider"
+    "provider": "Modules\\Accounts\\AccountsServiceProvider"
 }
