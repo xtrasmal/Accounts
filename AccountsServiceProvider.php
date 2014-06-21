@@ -1,9 +1,12 @@
 <?php namespace Modules\Accounts;
 
-use Illuminate\Support\ServiceProvider,
-    Illuminate\Foundation\AliasLoader;
+use Modules\Account\Models\User,
+    Illuminate\Foundation\AliasLoader,
+    Illuminate\Support\ServiceProvider,
+    Modules\Accounts\Repositories\EloquentUserRepository;
 
-class AccountsServiceProvider extends ServiceProvider {
+class AccountsServiceProvider extends ServiceProvider
+{
 
     /**
      * Register the service provider.
@@ -23,6 +26,10 @@ class AccountsServiceProvider extends ServiceProvider {
             $loader->alias('User', 'Modules\Accounts\Models\User');
         });
 
+//        $this->app->bind('Modules\Accounts\Repositories\UserRepository', function()
+//        {
+//            return new EloquentUserRepository(new User);
+//        });
 
     }
 

@@ -1,8 +1,8 @@
-default:
-    paths:
-      features: app\modules\Accounts\tests\features
-      bootstrap: %behat.paths.features%/bootstrap
-
 accounts:
-    filters:
-      tags: "@accounts"
+  filters:
+    tags: "@accounts"
+  paths:
+    features: app/modules/Accounts/tests/features
+    bootstrap: app/modules/Accounts/tests/features/bootstrap
+
+
