@@ -33,9 +33,12 @@ class ResetFormController extends BaseFormController
         {
             return $this->redirectBack(['errors' => $this->form->getErrors()]);
         }
+
         $command = new ResetUserPasswordRequest(
+            $input['token'],
             $input['email'],
-            $input['password']
+            $input['password'],
+            $input['password_confirmation']
         );
 
         $user = $this->bus->execute($command);

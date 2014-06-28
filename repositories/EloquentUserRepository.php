@@ -1,6 +1,6 @@
 <?php namespace Modules\Accounts\Repositories;
 
-use Password;
+use Hash, Password;
 use Modules\Accounts\Models\User;
 
 class EloquentUserRepository implements UserRepository
@@ -39,9 +39,10 @@ class EloquentUserRepository implements UserRepository
         return Password::remind($credentials);
     }
 
-    public function resetPassword($email, $password)
+    public function resetPassword($credentials)
     {
-        return Password::reset(['email'=> $email], function($user, $password)
+
+        return Password::reset($credentials, function($user, $password)
         {
             $user->password = Hash::make($password);
 

@@ -17,6 +17,6 @@ interface UserRepository
 
     public function remindPassword($credentials);
 
-    public function resetPassword($email, $password);
+    public function resetPassword($credentials);
 
 }

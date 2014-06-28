@@ -28,8 +28,13 @@ class ResetUserPasswordHandler implements HandlerInterface
 
             $user->resetUserPassword($user);
             $this->dispatcher->dispatch($user->releaseEvents());
-
-            $this->repo->resetPassword($command->email, $command->password);
+            $credentials = [
+                'password'              =>  $command->password,
+                'password_confirmation' =>  $command->password_confirmation,
+                'email'                 =>  $command->email,
+                'token'                 =>  $command->token
+            ];
+            $this->repo->resetPassword($credentials);
             return new ResetUserPasswordResponse($user);
         }
 
