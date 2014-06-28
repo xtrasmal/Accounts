@@ -15,6 +15,8 @@ interface UserRepository
 
     public function delete(User $model);
 
-    public function resetPassword($credentials);
+    public function remindPassword($credentials);
+
+    public function resetPassword($email, $password);
 
 }

@@ -12,6 +12,7 @@ use Modules\Accounts\Events\UserCreatedEvent;
 use Modules\Accounts\Events\UserLoggedInEvent;
 use Modules\Accounts\Events\UserRegisteredEvent;
 use Modules\Accounts\Events\UserPasswordResetEvent;
+use Modules\Accounts\Events\UserPasswordRemindEvent;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
@@ -93,6 +94,14 @@ class User extends Model implements UserInterface, RemindableInterface
     {
 
         $this->raise(new UserRegisteredEvent($user));
+        return $user;
+
+    }
+
+    public function remindUserPassword($user)
+    {
+
+        $this->raise(new UserPasswordRemindEvent($user));
         return $user;
 
     }

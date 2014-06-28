@@ -33,9 +33,21 @@ class EloquentUserRepository implements UserRepository
         return $this->model->all();
 
     }
-    public function resetPassword($credentials)
+
+    public function remindPassword($credentials)
     {
         return Password::remind($credentials);
+    }
+
+    public function resetPassword($email, $password)
+    {
+        return Password::reset(['email'=> $email], function($user, $password)
+        {
+            $user->password = Hash::make($password);
+
+            $user->save();
+
+        });
     }
 
     public function save(User $model)
@@ -51,6 +63,5 @@ class EloquentUserRepository implements UserRepository
         $model->delete();
 
     }
-
 
 }

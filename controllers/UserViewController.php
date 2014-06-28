@@ -26,6 +26,11 @@ class UserViewController extends BaseController
 
     }
 
+    public function resetView($token)
+    {
+        return View::make('accounts.reset')->with('token', $token);
+    }
+    
     public function allUsersView()
     {
 

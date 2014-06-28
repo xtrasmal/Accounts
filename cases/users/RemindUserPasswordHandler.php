@@ -31,9 +31,9 @@ class RemindUserPasswordHandler implements HandlerInterface
 
         if($user){
 
-            $user->resetUserPassword($user);
+            $user->remindUserPassword($user);
             $this->dispatcher->dispatch($user->releaseEvents());
-            $this->repo->resetPassword(['email' => $command->email]);
+            $this->repo->remindPassword(['email' => $command->email]);
 
             return new RemindUserPasswordResponse($user);
         }
