@@ -19,17 +19,15 @@ class AccountsServiceProvider extends ServiceProvider
         {
             return new User;
         });
-
+        $this->app->bind(
+            'Modules\Accounts\Repositories\UserRepository',
+            'Modules\Accounts\Repositories\EloquentUserRepository'
+        );
         $this->app->booting(function()
         {
             $loader = AliasLoader::getInstance();
             $loader->alias('User', 'Modules\Accounts\Models\User');
         });
-
-//        $this->app->bind('Modules\Accounts\Repositories\UserRepository', function()
-//        {
-//            return new EloquentUserRepository(new User);
-//        });
 
     }
 

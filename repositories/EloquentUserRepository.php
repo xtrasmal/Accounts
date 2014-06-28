@@ -2,9 +2,8 @@
 
 use Ill\Core\Events\EventGenerator;
 use Modules\Accounts\Models\User;
-use Illuminate\Database\Eloquent\Model;
 
-class EloquentUserRepository
+class EloquentUserRepository implements UserRepository
 {
 
     private $model;
@@ -30,14 +29,14 @@ class EloquentUserRepository
 
     }
 
-    public function save(Model $model)
+    public function save(User $model)
     {
 
         $model->save();
 
     }
 
-    public function delete(Model $model)
+    public function delete(User $model)
     {
 
         $model->delete();

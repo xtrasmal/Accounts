@@ -4,7 +4,7 @@ use Ill\Core\Events\Dispatcher;
 use Modules\Accounts\Models\User;
 use Ill\Core\CommandBus\Interfaces\HandlerInterface;
 use Modules\Accounts\Validators\CreateUserValidator;
-use Modules\Accounts\Repositories\EloquentUserRepository;
+use Modules\Accounts\Repositories\UserRepository;
 
 class CreateUserHandler implements HandlerInterface
 {
@@ -13,7 +13,7 @@ class CreateUserHandler implements HandlerInterface
     private $dispatcher;
     private $validator;
 
-    public function __construct(EloquentUserRepository $repo,
+    public function __construct(UserRepository $repo,
                                 Dispatcher $dispatcher,
                                 CreateUserValidator $validator)
     {

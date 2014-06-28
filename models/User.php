@@ -1,5 +1,6 @@
 <?php namespace Modules\Accounts\Models;
 
+use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Ill\Core\Events\EventGenerator;
 use Illuminate\Database\Eloquent\Model;
@@ -9,14 +10,19 @@ use Modules\Accounts\Events\UserDeletedEvent;
 use Modules\Accounts\Events\UserUpdatedEvent;
 use Modules\Accounts\Events\UserCreatedEvent;
 use Modules\Accounts\Events\UserLoggedInEvent;
+use Modules\Accounts\Events\UserRegisteredEvent;
+use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use Modules\Accounts\Events\UserRegisteredEvent;
+
 
 class User extends Model implements UserInterface, RemindableInterface
 {
+    use UserTrait;
     use EventGenerator;
+    use RemindableTrait;
     use SoftDeletingTrait;
+
 
     protected $guarded = [];
     protected $dates = ['deleted_at'];
@@ -87,73 +93,6 @@ class User extends Model implements UserInterface, RemindableInterface
 
         $this->raise(new UserRegisteredEvent($user));
         return $user;
-
-    }
-
-    /**
-     * Get the e-mail address where password reminders are sent.
-     *
-     * @return string
-     */
-    public function getReminderEmail()
-    {
-
-        return $this->email;
-
-    }
-
-    /**
-     * Get the unique identifier for the user.
-     *
-     * @return mixed
-     */
-    public function getAuthIdentifier()
-    {
-
-        return $this->getKey();
-
-    }
-
-    /**
-     * Get the password for the user.
-     *
-     * @return string
-     */
-    public function getAuthPassword()
-    {
-
-        return $this->password;
-
-    }
-
-    /**
-     * Get the token value for the "remember me" session.
-     *
-     * @return string
-     */
-    public function getRememberToken()
-    {
-
-    }
-
-    /**
-     * Set the token value for the "remember me" session.
-     *
-     * @param  string $value
-     * @return void
-     */
-    public function setRememberToken($value)
-    {
-
-    }
-
-    /**
-     * Get the column name for the "remember me" token.
-     *
-     * @return string
-     */
-    public function getRememberTokenName()
-    {
 
     }
 
