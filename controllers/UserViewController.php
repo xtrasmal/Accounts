@@ -19,6 +19,13 @@ class UserViewController extends BaseController
 
     }
 
+    public function forgotView()
+    {
+
+        return View::make('accounts.forgot');
+
+    }
+
     public function allUsersView()
     {
 

@@ -34,6 +34,7 @@ class LoginUserHandler implements HandlerInterface
 
         }
 
+        return false;
     }
 
 }

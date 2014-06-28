@@ -1,6 +1,6 @@
 <?php namespace Modules\Accounts\Repositories;
 
-use Ill\Core\Events\EventGenerator;
+use Password;
 use Modules\Accounts\Models\User;
 
 class EloquentUserRepository implements UserRepository
@@ -22,11 +22,20 @@ class EloquentUserRepository implements UserRepository
 
     }
 
+    public function getByEmail($email)
+    {
+        return $this->model->where('email', '=', $email)->first();
+    }
+
     public function getAll()
     {
 
         return $this->model->all();
 
+    }
+    public function resetPassword($credentials)
+    {
+        return Password::remind($credentials);
     }
 
     public function save(User $model)
@@ -42,5 +51,6 @@ class EloquentUserRepository implements UserRepository
         $model->delete();
 
     }
+
 
 }

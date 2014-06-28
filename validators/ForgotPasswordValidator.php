@@ -1,10 +1,10 @@
 <?php namespace Modules\Accounts\Validators;
 
 use Illuminate\Validation\Factory;
-use Modules\Accounts\Cases\Users\CreateUserCommand;
+use Modules\Accounts\Cases\Users\RemindUserPasswordRequest;
 use Ill\Core\CommandBus\Exceptions\CommandValidationFailedException;
 
-class CreateUserValidator
+class ForgotPasswordValidator
 {
     private $validationFactory;
 
@@ -15,19 +15,15 @@ class CreateUserValidator
 
     }
 
-    public function validate(CreateUserCommand $command)
+    public function validate(RemindUserPasswordRequest $command)
     {
 
         $validator = $this->validationFactory->make(
             [
-                'email'     => $command->email,
-                'name'      => $command->name,
-                'password'  => $command->password,
+                'email'     => $command->email
             ],
             [
-                'email'     => 'required|email',
-                'name'      => 'required',
-                'password'  => 'required|min:10',
+                'email'     => 'required|email'
             ]
         );
 

@@ -3,8 +3,7 @@
 use Ill\Core\Events\Dispatcher;
 use Modules\Accounts\Models\User;
 use Ill\Core\CommandBus\Interfaces\HandlerInterface;
-use Modules\Accounts\Repositories\EloquentUserRepository;
-
+use Modules\Accounts\Repositories\UserRepository;
 
 class ReadUserHandler implements HandlerInterface
 {
@@ -12,7 +11,7 @@ class ReadUserHandler implements HandlerInterface
     private $repo;
     private $dispatcher;
 
-    public function __construct(EloquentUserRepository $repo,
+    public function __construct(UserRepository $repo,
                                 Dispatcher $dispatcher)
     {
 
