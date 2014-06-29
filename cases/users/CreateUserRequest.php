@@ -1,6 +1,8 @@
 <?php namespace Modules\Accounts\Cases\Users;
 
-class CreateUserRequest
+use Ill\Core\BehaviourPool\Interfaces\BehaviourPool;
+
+class CreateUserRequest implements BehaviourPool
 {
 
     public $email;
@@ -14,6 +16,13 @@ class CreateUserRequest
         $this->name     = $name;
         $this->password = $password;
 
+    }
+
+    public function explain()
+    {
+        return [
+            'feature' => 'Can create a new User',
+        ];
     }
 
 }

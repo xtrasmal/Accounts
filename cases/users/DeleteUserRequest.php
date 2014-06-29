@@ -1,6 +1,8 @@
 <?php namespace Modules\Accounts\Cases\Users;
 
-class DeleteUserRequest
+use Ill\Core\BehaviourPool\Interfaces\BehaviourPool;
+
+class DeleteUserRequest implements BehaviourPool
 {
 
     public $id;
@@ -12,4 +14,8 @@ class DeleteUserRequest
 
     }
 
+    public function explain()
+    {
+
+    }
 }
