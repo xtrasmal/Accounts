@@ -1,18 +1,21 @@
 <?php namespace Modules\Accounts\Cases\Users;
 
-use Modules\Accounts\Models\User;
-
 class ReadAllUsersResponse
 {
 
-    private $user;
+    private $users;
 
-    public function __construct(User $user)
+    public function __construct($users)
     {
 
-        $this->user = $user;
+        $this->users = $users;
 
     }
-
+    public function __get($property)
+    {
+        if (property_exists($this, $property)) {
+            return $this->$property;
+        }
+    }
 
 }

@@ -1,18 +1,17 @@
 <?php namespace Modules\Accounts\Cases\Users;
 
 use Ill\Core\Events\Dispatcher;
-use Modules\Accounts\Models\User;
+use Modules\Accounts\Models\User, Auth;
 use Ill\Core\CommandBus\Interfaces\HandlerInterface;
-use Modules\Accounts\Repositories\EloquentUserRepository;
+use Modules\Accounts\Repositories\UserRepository;
 
-
-class DeleteUserHandler implements HandlerInterface
+class LogoutUserHandler implements HandlerInterface
 {
 
     private $repo;
     private $dispatcher;
 
-    public function __construct(EloquentUserRepository $repo,
+    public function __construct(UserRepository $repo,
                                 Dispatcher $dispatcher)
     {
 
@@ -23,15 +22,13 @@ class DeleteUserHandler implements HandlerInterface
 
     public function handle($command)
     {
+        Auth::logout();
 
-        $user       = $this->repo->getById($command->id);
-        $response   = $this->repo->delete($user);
-
-        $user = new User;
-        $user->deleteUser($user);
+        $user = new User();
+        $user->logoutUser($user);
         $this->dispatcher->dispatch($user->releaseEvents());
 
-        return new DeleteUserResponse($response);
+        return new LogoutUserResponse();
 
     }
 

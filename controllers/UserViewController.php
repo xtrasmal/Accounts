@@ -1,6 +1,7 @@
 <?php namespace Modules\Accounts\Controllers;
 
-use Ill\System\Base\BaseController, View;
+use Ill\System\Base\BaseController, View, Response;
+use Modules\Accounts\Cases\Users\ReadAllUsersRequest;
 
 class UserViewController extends BaseController
 {
@@ -30,11 +31,15 @@ class UserViewController extends BaseController
     {
         return View::make('accounts.reset')->with('token', $token);
     }
-    
+
     public function allUsersView()
     {
+        $request = new ReadAllUsersRequest();
 
-        // echo 'henk';
+        $response = $this->bus->execute($request);
+
+        return View::make('accounts.all')->with('accounts', $response->users);
+
 
     }
 

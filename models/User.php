@@ -4,6 +4,7 @@ use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Ill\Core\Events\EventGenerator;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Accounts\Events\UserLoggedOutEvent;
 use Modules\Accounts\Events\UserReadEvent;
 use Modules\Accounts\Events\UsersReadEvent;
 use Modules\Accounts\Events\UserDeletedEvent;
@@ -110,6 +111,14 @@ class User extends Model implements UserInterface, RemindableInterface
     {
 
         $this->raise(new UserPasswordResetEvent($user));
+        return $user;
+
+    }
+
+    public function logoutUser($user)
+    {
+
+        $this->raise(new UserLoggedOutEvent($user));
         return $user;
 
     }

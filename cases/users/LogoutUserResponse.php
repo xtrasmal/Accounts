@@ -1,12 +1,14 @@
 <?php namespace Modules\Accounts\Cases\Users;
 
-class ReadAllUsersRequest
+class LogoutUserResponse
 {
 
     public function __construct()
     {
 
+        return true;
 
     }
+
 
 }

@@ -7,6 +7,7 @@ Route::group(
     ],
     function()
     {
+        Route::get('logout',         ['as' => 'accounts.logout', 'uses' => 'UserController@logoutUser']);
         Route::get('login',         ['as' => 'accounts.login', 'uses' => 'UserViewController@loginView']);
         Route::post('login',        ['as' => 'accounts.login', 'uses' => 'LoginFormController@loginUser']);
         Route::get('register',      ['as' => 'accounts.register', 'uses' => 'UserViewController@registerView']);
@@ -18,5 +19,16 @@ Route::group(
         Route::get('{id}',          ['as' => 'accounts.show', 'uses' => 'UserController@readUser']);
     }
 );
-
+// Admin
+Route::group(
+    [
+        'namespace' => 'Modules\Accounts\Controllers',
+        'prefix'    => 'accounts',
+        'before'    => 'auth',
+    ],
+    function()
+    {
+        Route::get('/', ['as'=>'accounts.all', 'uses'=>'UserViewController@allUsersView']);
+    }
+);
 // Special

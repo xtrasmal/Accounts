@@ -1,6 +1,6 @@
 <?php namespace Modules\Accounts\Cases\Users;
 
-class ReadAllUsersRequest
+class LogoutUserRequest
 {
 
     public function __construct()
