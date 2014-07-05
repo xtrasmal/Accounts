@@ -35,9 +35,7 @@ class UserViewController extends BaseController
     public function allUsersView()
     {
         $request = new ReadAllUsersRequest();
-
         $response = $this->bus->execute($request);
-
         return View::make('accounts.all')->with('accounts', $response->users);
 
 
