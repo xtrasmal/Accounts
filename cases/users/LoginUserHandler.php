@@ -1,9 +1,9 @@
 <?php namespace Modules\Accounts\Cases\Users;
 
 use Ill\Core\Events\Dispatcher;
-use Modules\Accounts\Models\User, Auth;
-use Ill\Core\CommandBus\Interfaces\HandlerInterface;
+use Modules\Accounts\Models\User;
 use Modules\Accounts\Repositories\UserRepository;
+use Ill\Core\CommandBus\Interfaces\HandlerInterface;
 
 class LoginUserHandler implements HandlerInterface
 {
@@ -23,13 +23,14 @@ class LoginUserHandler implements HandlerInterface
     public function handle($command)
     {
 
-        if (Auth::attempt(['email' => $command->email, 'password' => $command->password]))
+        if($this->repo->login($command->email, $command->password))
         {
-            $user = new User();
 
+            $user = new User();
             $user->loginUser($user);
 
             $this->dispatcher->dispatch($user->releaseEvents());
+
             return new LoginUserResponse($user);
 
         }

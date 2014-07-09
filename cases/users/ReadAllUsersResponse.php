@@ -11,11 +11,14 @@ class ReadAllUsersResponse
         $this->users = $users;
 
     }
+
     public function __get($property)
     {
+
         if (property_exists($this, $property)) {
             return $this->$property;
         }
+
     }
 
 }

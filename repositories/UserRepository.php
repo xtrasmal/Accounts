@@ -19,4 +19,6 @@ interface UserRepository
 
     public function resetPassword($credentials);
 
+    public function login($email, $password);
+
 }

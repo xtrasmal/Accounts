@@ -1,6 +1,7 @@
 <?php namespace Modules\Accounts\Cases\Users;
 
 use Ill\Core\Events\Dispatcher;
+use Modules\Accounts\Listeners\SetupTenantForUser;
 use Modules\Accounts\Models\User;
 use Ill\Core\CommandBus\Interfaces\HandlerInterface;
 use Modules\Accounts\Repositories\UserRepository;
@@ -28,10 +29,13 @@ class RegisterUserHandler implements HandlerInterface
             'name'      => $command->name,
             'password'  => $command->password,
         ]);
+        $this->repo->save($user);
+
+        $this->dispatcher->addListener('accounts.user_registered', new SetupTenantForUser($user));
 
         $user->registerUser($user);
         $this->dispatcher->dispatch($user->releaseEvents());
-        $this->repo->save($user);
+
         return new RegisterUserResponse($user);
 
     }
