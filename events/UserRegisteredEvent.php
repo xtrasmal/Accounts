@@ -18,7 +18,7 @@ class UserRegisteredEvent implements EventInterface
     public function getName()
     {
 
-        return 'accounts.user_registered';
+        return 'userRegistered';
 
     }
 

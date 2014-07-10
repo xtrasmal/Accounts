@@ -3,7 +3,9 @@
 use Modules\Account\Models\User,
     Illuminate\Foundation\AliasLoader,
     Illuminate\Support\ServiceProvider,
+    Ill\System\Contexts\AccountContext,
     Modules\Accounts\Repositories\EloquentUserRepository;
+use Modules\Accounts\Listeners\SetupTenantForUser;
 
 class AccountsServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,15 @@ class AccountsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('Ill\System\Contexts\Context', function($app)
+        {
+            return $app['context'];
+        });
+        $this->app['context'] = $this->app->share(function($app)
+        {
+            return new AccountContext;
+        });
+
         $this->app['user'] = $this->app->share(function($app)
         {
             return new User;
@@ -31,6 +42,17 @@ class AccountsServiceProvider extends ServiceProvider
 
     }
 
+    public function boot()
+    {
+        $dispatcher = $this->app->make('Ill\Core\Events\Dispatcher');
+        $events = $this->getAccountsEvents();
+
+        foreach($events as $eventName=>$eventListeners)
+        {
+            $dispatcher->addListener($eventName, $eventListeners);
+        }
+
+    }
     /**
      * Get the services provided by the provider.
      *
@@ -38,7 +60,15 @@ class AccountsServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('user');
+        return array('user','context');
+    }
+
+    private function getAccountsEvents()
+    {
+
+        return [
+            'userRegistered'=>  new SetupTenantForUser()
+        ];
     }
 
 }

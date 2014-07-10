@@ -7,6 +7,7 @@ class SetupTenantForUserRequest
 
     public function __construct($user)
     {
+
         $this->user = $user;
 
     }

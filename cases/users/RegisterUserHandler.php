@@ -31,8 +31,6 @@ class RegisterUserHandler implements HandlerInterface
         ]);
         $this->repo->save($user);
 
-        $this->dispatcher->addListener('accounts.user_registered', new SetupTenantForUser($user));
-
         $user->registerUser($user);
         $this->dispatcher->dispatch($user->releaseEvents());
 

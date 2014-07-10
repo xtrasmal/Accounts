@@ -20,7 +20,6 @@ class SetupTenantForUserHandler implements HandlerInterface
 
     public function handle($command)
     {
-
         $this->tenant->save($command->user);
         return true;
 
