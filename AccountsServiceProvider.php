@@ -45,7 +45,8 @@ class AccountsServiceProvider extends ServiceProvider
     public function boot()
     {
         $dispatcher = $this->app->make('Ill\Core\Events\Dispatcher');
-        $events = $this->getAccountsEvents();
+        $bus = $this->app->make('Ill\Core\CommandBus\DefaultCommandBus');
+        $events = $this->getAccountsEvents($bus);
 
         foreach($events as $eventName=>$eventListeners)
         {
@@ -63,11 +64,11 @@ class AccountsServiceProvider extends ServiceProvider
         return array('user','context');
     }
 
-    private function getAccountsEvents()
+    private function getAccountsEvents($bus)
     {
 
         return [
-            'userRegistered'=>  new SetupTenantForUser()
+            'userRegistered'=>  new SetupTenantForUser($bus)
         ];
     }
 
