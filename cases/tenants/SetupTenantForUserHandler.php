@@ -2,25 +2,29 @@
 
 use Ill\Core\Events\Dispatcher;
 use Ill\Core\CommandBus\Interfaces\HandlerInterface;
+use Modules\Accounts\Models\Account;
 
 class SetupTenantForUserHandler implements HandlerInterface
 {
 
-    private $tenant;
     private $dispatcher;
 
-    public function __construct(Tenant $tenant,
-                                Dispatcher $dispatcher)
+    public function __construct(Dispatcher $dispatcher)
     {
 
-        $this->tenant = $tenant;
         $this->dispatcher = $dispatcher;
 
     }
 
     public function handle($command)
     {
-        $this->tenant->save($command->user);
+
+        $tenant = Account::register();
+        $tenant->save();
+
+        $command->user->account_id = $tenant->id;
+        $command->user->save();
+
         return true;
 
     }

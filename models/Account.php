@@ -16,7 +16,14 @@ class Account extends Model
     protected $guarded = [];
     protected $dates = ['deleted_at'];
 
+    public static function register()
+    {
 
+        $account = new static();
+
+        return $account;
+
+    }
     public function users()
     {
         $this->hasMany('User');

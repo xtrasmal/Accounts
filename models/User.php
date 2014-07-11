@@ -125,6 +125,6 @@ class User extends Model implements UserInterface, RemindableInterface
 
     public function account()
     {
-        $this->belongsTo('Account');
+        $this->belongsTo('Modules\Accounts\Models\Account');
     }
 }
