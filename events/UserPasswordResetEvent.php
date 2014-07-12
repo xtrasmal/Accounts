@@ -18,7 +18,7 @@ class UserPasswordResetEvent implements EventInterface
     public function getName()
     {
 
-        return 'accounts.user_password_reset';
+        return 'passwordReset';
 
     }
 

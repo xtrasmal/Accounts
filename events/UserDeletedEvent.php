@@ -18,7 +18,7 @@ class UserDeletedEvent implements EventInterface
     public function getName()
     {
 
-        return 'accounts.user_deleted';
+        return 'userDeleted';
 
     }
 

@@ -18,7 +18,7 @@ class UserUpdatedEvent implements EventInterface
     public function getName()
     {
 
-        return 'accounts.user_updated';
+        return 'userUpdated';
 
     }
 

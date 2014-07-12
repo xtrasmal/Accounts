@@ -18,7 +18,7 @@ class UserCreatedEvent implements EventInterface
     public function getName()
     {
 
-        return 'accounts.user_created';
+        return 'userCreated';
 
     }
 

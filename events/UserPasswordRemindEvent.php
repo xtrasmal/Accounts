@@ -18,7 +18,7 @@ class UserPasswordRemindEvent implements EventInterface
     public function getName()
     {
 
-        return 'accounts.user_password_reminder';
+        return 'passwordReminderSend';
 
     }
 

@@ -18,7 +18,7 @@ class UserReadEvent implements EventInterface
     public function getName()
     {
 
-        return 'accounts.user_read';
+        return 'userRead';
 
     }
 

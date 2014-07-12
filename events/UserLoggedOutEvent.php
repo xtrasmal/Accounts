@@ -18,7 +18,7 @@ class UserLoggedOutEvent implements EventInterface
     public function getName()
     {
 
-        return 'accounts.user_loggedout';
+        return 'userLoggedOut';
 
     }
 

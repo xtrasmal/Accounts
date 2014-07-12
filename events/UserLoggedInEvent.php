@@ -18,7 +18,7 @@ class UserLoggedInEvent implements EventInterface
     public function getName()
     {
 
-        return 'accounts.user_loggedin';
+        return 'userLoggedIn';
 
     }
 
