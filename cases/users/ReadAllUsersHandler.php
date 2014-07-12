@@ -24,7 +24,6 @@ class ReadAllUsersHandler implements HandlerInterface
     {
 
         $response = $this->repo->getAll();
-
         $user = new User;
         $user->readAllUsers($user);
         $this->dispatcher->dispatch($user->releaseEvents());

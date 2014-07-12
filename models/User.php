@@ -125,7 +125,7 @@ class User extends Model implements UserInterface, RemindableInterface
 
     public function ownedTenant()
     {
-        $this->hasOne('Modules\Accounts\Models\Tenant', 'owner_id');
+        return $this->hasOne('Modules\Accounts\Models\Tenant', 'owner_id');
     }
 
     public function tenants()
@@ -134,5 +134,13 @@ class User extends Model implements UserInterface, RemindableInterface
         return $this->hasMany('Modules\Accounts\Models\Tenant');
 
     }
+
+    public function users()
+    {
+
+        return $this->hasMany('Modules\Accounts\Models\User');
+
+    }
+
 
 }
