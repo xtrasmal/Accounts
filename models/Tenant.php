@@ -7,26 +7,38 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 
-class Account extends Model
+class Tenant extends Model
 {
     use EventGenerator;
     use SoftDeletingTrait;
 
-
+    protected $table = 'tenants';
     protected $guarded = [];
     protected $dates = ['deleted_at'];
 
-    public static function register()
+    public static function register($owner_id)
     {
 
-        $account = new static();
+        $tenant = new static([
+            'owner_id'  => $owner_id
+        ]);
 
-        return $account;
+        return $tenant;
 
     }
+
     public function users()
     {
-        $this->hasMany('User');
+
+        return $this->belongsToMany('User');
+
+    }
+
+    public function owner()
+    {
+
+        return $this->hasOne('User', 'owner_id');
+
     }
 
 }

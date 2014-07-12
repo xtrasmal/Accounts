@@ -3,7 +3,7 @@
 use Modules\Account\Models\User,
     Illuminate\Foundation\AliasLoader,
     Illuminate\Support\ServiceProvider,
-    Ill\System\Contexts\AccountContext,
+    Ill\System\Contexts\TenantContext,
     Modules\Accounts\Repositories\EloquentUserRepository;
 use Modules\Accounts\Listeners\SetupTenantForUser;
 
@@ -23,7 +23,7 @@ class AccountsServiceProvider extends ServiceProvider
         });
         $this->app['context'] = $this->app->share(function($app)
         {
-            return new AccountContext;
+            return new TenantContext;
         });
 
         $this->app['user'] = $this->app->share(function($app)
@@ -44,9 +44,10 @@ class AccountsServiceProvider extends ServiceProvider
 
     public function boot()
     {
+
         $dispatcher = $this->app->make('Ill\Core\Events\Dispatcher');
         $bus = $this->app->make('Ill\Core\CommandBus\DefaultCommandBus');
-        $events = $this->getAccountsEvents($bus);
+        $events = $this->getModuleEvents($bus);
 
         foreach($events as $eventName=>$eventListeners)
         {
@@ -64,7 +65,7 @@ class AccountsServiceProvider extends ServiceProvider
         return array('user','context');
     }
 
-    private function getAccountsEvents($bus)
+    private function getModuleEvents($bus)
     {
 
         return [

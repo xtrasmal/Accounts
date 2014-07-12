@@ -8,11 +8,11 @@ class CreateUsersTable extends Migration {
 	{
 	    Schema::create('users', function($t)
 	    {
-	        $t->increments('id');
+	        $t->increments('id')->unsigned()->index();
 	        $t->string('email')->unique();
 	        $t->string('password');
 	        $t->string('name');
-            $t->integer('account_id');
+            $t->boolean('confirmed')->default(false);
             $t->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $t->timestamp('updated_at');
             $t->text('remember_token')->nullable();

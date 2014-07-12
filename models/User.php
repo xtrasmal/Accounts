@@ -26,7 +26,7 @@ class User extends Model implements UserInterface, RemindableInterface
     use RemindableTrait;
     use SoftDeletingTrait;
 
-
+    protected $table = "users";
     protected $guarded = [];
     protected $dates = ['deleted_at'];
 
@@ -123,8 +123,16 @@ class User extends Model implements UserInterface, RemindableInterface
 
     }
 
-    public function account()
+    public function ownedTenant()
     {
-        $this->belongsTo('Modules\Accounts\Models\Account');
+        $this->hasOne('Modules\Accounts\Models\Tenant', 'owner_id');
     }
+
+    public function tenants()
+    {
+
+        return $this->hasMany('Modules\Accounts\Models\Tenant');
+
+    }
+
 }

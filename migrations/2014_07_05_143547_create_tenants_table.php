@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAccountsTable extends Migration {
+class CreateTenantsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,15 +11,16 @@ class CreateAccountsTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('accounts', function($t)
+        Schema::create('tenants', function($t)
         {
-            $t->increments('id');
-            $t->string('name');
+            $t->increments('id')->unsigned()->index();
+            $t->integer('owner_id')->unsigned()->nullable();
             $t->string('domain_name');
             $t->boolean('confirmed')->default(false);
             $t->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $t->timestamp('updated_at');
             $t->softDeletes();
+            $t->foreign('owner_id')->references('id')->on('users')->onDelete(DB::raw('set null'));
         });
 	}
 
@@ -30,7 +31,7 @@ class CreateAccountsTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('accounts');
+        Schema::drop('tenants');
 	}
 
 }

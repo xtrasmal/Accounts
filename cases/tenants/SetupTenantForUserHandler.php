@@ -2,7 +2,8 @@
 
 use Ill\Core\Events\Dispatcher;
 use Ill\Core\CommandBus\Interfaces\HandlerInterface;
-use Modules\Accounts\Models\Account;
+use Ill\System\Contexts\TenantRepository;
+use Modules\Accounts\Models\Tenant;
 
 class SetupTenantForUserHandler implements HandlerInterface
 {
@@ -19,11 +20,12 @@ class SetupTenantForUserHandler implements HandlerInterface
     public function handle($command)
     {
 
-        $tenant = Account::register();
+        $tenant = Tenant::register($command->user->id);
+
         $tenant->save();
 
-        $command->user->account_id = $tenant->id;
-        $command->user->save();
+        $tenant->users()->attach($command->user->id);
+
 
         return true;
 

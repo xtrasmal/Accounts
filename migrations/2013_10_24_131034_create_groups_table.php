@@ -9,13 +9,13 @@ class CreateGroupsTable extends Migration {
 	    Schema::create('groups', function($t)
 	    {
 	        $t->increments('id');
-			$t->string('group');
+			$t->string('name');
 	    });
 	}
 
 	public function down()
 	{
-	    Schema::drop('group');
+	    Schema::drop('groups');
 	}
 
 }
