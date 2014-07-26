@@ -10,6 +10,7 @@ class CreateGroupsTable extends Migration {
 	    {
 	        $t->increments('id');
 			$t->string('name');
+            $t->string('tenant_id', 36)->nullable();
 	    });
 	}
 

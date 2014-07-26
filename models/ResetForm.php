@@ -6,8 +6,9 @@ class ResetForm extends BaseForm
 {
 
     protected $validationRules = [
-        'email'       => 'required|email',
-        'password'    => 'required|confirmed',
+        'email'                 => 'required|email',
+        'password'              => 'required|confirmed',
+        'password_confirmation' => 'required'
     ];
 
 

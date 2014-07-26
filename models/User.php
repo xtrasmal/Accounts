@@ -36,9 +36,9 @@ class User extends Model implements UserInterface, RemindableInterface
     {
 
         $user = new static([
-            'email'       => $attributes['email'],
-            'name'        => $attributes['name'],
-            'password'    => $attributes['password']
+            'email'                 => $attributes['email'],
+            'name'                  => $attributes['name'],
+            'password'              => $attributes['password'],
         ]);
 
         return $user;

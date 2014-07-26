@@ -10,6 +10,7 @@ class CreateRolesTable extends Migration {
 	    {
 	        $table->increments('id');
 			$table->string('name');
+            $table->string('tenant_id', 36)->nullable();
 	    });
 	}
 

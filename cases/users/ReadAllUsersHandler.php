@@ -1,7 +1,9 @@
 <?php namespace Modules\Accounts\Cases\Users;
 
+use Illuminate\Support\Facades\Log;
 use Modules\Accounts\Models\User;
 use Ill\Core\CommandBus\Interfaces\HandlerInterface;
+use Monolog\Logger;
 
 class ReadAllUsersHandler extends BaseUserHandler implements HandlerInterface
 {
@@ -9,9 +11,8 @@ class ReadAllUsersHandler extends BaseUserHandler implements HandlerInterface
 
     public function handle($request)
     {
-        //$context = \App::make('Ill\System\Contexts\Context');
 
-        $response = $this->repo->all();  //$context->all();
+        $response = $this->repo->all();
 
         $user = new User;
         $user->readAllUsers($user);
