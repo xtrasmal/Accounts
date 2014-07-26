@@ -5,6 +5,8 @@ use Modules\Accounts\Models\User;
 interface UserRepository
 {
 
+    public function all();
+
     public function getById($id);
 
     public function getByEmail($email);
@@ -20,5 +22,7 @@ interface UserRepository
     public function resetPassword($credentials);
 
     public function login($email, $password);
+
+    public function logout();
 
 }

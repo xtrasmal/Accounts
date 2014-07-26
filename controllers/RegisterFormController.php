@@ -37,7 +37,7 @@ class RegisterFormController extends BaseFormController
         $command = new RegisterUserRequest(
             $input['name'],
             $input['email'],
-            Hash::make($input['password'])
+            $input['password']
         );
 
         $user = $this->bus->execute($command);
@@ -45,7 +45,6 @@ class RegisterFormController extends BaseFormController
         if($user){
             return $this->redirectRoute('accounts.register');
         } else{
-
             $this->messages->add('register-errors', 'The given emailaddress is already in use');
             return $this->redirectBack(['errors' => $this->messages]);
         }

@@ -25,6 +25,7 @@ class RemindUserPasswordHandler implements HandlerInterface
 
     public function handle($command)
     {
+
         $this->validator->validate($command);
 
         $user = $this->repo->getByEmail($command->email);

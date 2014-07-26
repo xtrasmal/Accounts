@@ -8,6 +8,7 @@ use Modules\Accounts\Cases\Users\LogoutUserRequest;
 
 class UserController extends BaseController
 {
+    // Todo: Read all users, Update user, Create user needs finishing
 
     public function createUser()
     {

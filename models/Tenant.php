@@ -1,20 +1,21 @@
 <?php namespace Modules\Accounts\Models;
 
-use Illuminate\Auth\UserTrait;
+use Ill\System\Base\UuidTrait;
 use Ill\Core\Events\EventGenerator;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 
 class Tenant extends Model
 {
+    use UuidTrait;
     use EventGenerator;
     use SoftDeletingTrait;
 
-    protected $table = 'tenants';
-    protected $guarded = [];
-    protected $dates = ['deleted_at'];
+    protected $table        = 'tenants';
+    protected $guarded      = [];
+    protected $dates        = ['deleted_at'];
+//    public    $incrementing = false;
 
     public static function register($owner_id)
     {

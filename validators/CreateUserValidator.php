@@ -1,7 +1,7 @@
 <?php namespace Modules\Accounts\Validators;
 
 use Illuminate\Validation\Factory;
-use Modules\Accounts\Cases\Users\CreateUserCommand;
+use Modules\Accounts\Cases\Users\CreateUserRequest;
 use Ill\Core\CommandBus\Exceptions\CommandValidationFailedException;
 
 class CreateUserValidator
@@ -15,7 +15,7 @@ class CreateUserValidator
 
     }
 
-    public function validate(CreateUserCommand $command)
+    public function validate(CreateUserRequest $command)
     {
 
         $validator = $this->validationFactory->make(

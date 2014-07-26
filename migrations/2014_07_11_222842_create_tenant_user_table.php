@@ -14,8 +14,8 @@ class CreateTenantUserTable extends Migration {
 		Schema::create('tenant_user', function($table)
 		{
             $table->increments('id');
-            $table->integer('tenant_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->string('tenant_id', 36);
+            $table->string('user_id', 36);
 
             $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -128,7 +128,7 @@ class EloquentUserRepository extends TenantRepository implements UserRepository
 
     public function save(User $model)
     {
-
+        $model->password = Hash::make($model->password);
         $model->save();
 
     }
@@ -144,6 +144,13 @@ class EloquentUserRepository extends TenantRepository implements UserRepository
     {
 
         return Auth::attempt(['email' => $email, 'password' => $password]);
+
+    }
+
+    public function logout()
+    {
+
+        return Auth::logout();
 
     }
 

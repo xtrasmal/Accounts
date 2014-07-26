@@ -8,7 +8,7 @@ class CreateUsersTable extends Migration {
 	{
 	    Schema::create('users', function($t)
 	    {
-	        $t->increments('id')->unsigned()->index();
+            $t->string('id', 36)->primary();
 	        $t->string('email')->unique();
 	        $t->string('password');
 	        $t->string('name');
@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration {
             $t->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $t->timestamp('updated_at');
             $t->text('remember_token')->nullable();
+            $t->string('tenant_id', 36)->nullable();
             $t->softDeletes();
 	    });
 	}

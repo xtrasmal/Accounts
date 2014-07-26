@@ -1,11 +1,10 @@
 <?php namespace Modules\Accounts;
 
-use Modules\Account\Models\User,
+use Modules\Accounts\Models\User,
     Illuminate\Foundation\AliasLoader,
     Illuminate\Support\ServiceProvider,
     Ill\System\Contexts\TenantContext,
-    Modules\Accounts\Repositories\EloquentUserRepository;
-use Modules\Accounts\Listeners\SetupTenantForUser;
+    Modules\Accounts\Listeners\SetupTenantForUser;
 
 class AccountsServiceProvider extends ServiceProvider
 {

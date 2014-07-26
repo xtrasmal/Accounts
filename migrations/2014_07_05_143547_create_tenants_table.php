@@ -13,8 +13,8 @@ class CreateTenantsTable extends Migration {
 	{
         Schema::create('tenants', function($t)
         {
-            $t->increments('id')->unsigned()->index();
-            $t->integer('owner_id')->unsigned()->nullable();
+            $t->string('id', 36)->primary();
+            $t->string('owner_id', 36)->nullable();
             $t->string('domain_name');
             $t->boolean('confirmed')->default(false);
             $t->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

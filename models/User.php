@@ -1,5 +1,6 @@
 <?php namespace Modules\Accounts\Models;
 
+use Ill\System\Base\UuidTrait;
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Ill\Core\Events\EventGenerator;
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 class User extends Model implements UserInterface, RemindableInterface
 {
     use UserTrait;
+    use UuidTrait;
     use EventGenerator;
     use RemindableTrait;
     use SoftDeletingTrait;
@@ -36,7 +38,7 @@ class User extends Model implements UserInterface, RemindableInterface
         $user = new static([
             'email'       => $attributes['email'],
             'name'        => $attributes['name'],
-            'password'    => $attributes['password'],
+            'password'    => $attributes['password']
         ]);
 
         return $user;
@@ -132,13 +134,6 @@ class User extends Model implements UserInterface, RemindableInterface
     {
 
         return $this->hasMany('Modules\Accounts\Models\Tenant');
-
-    }
-
-    public function users()
-    {
-
-        return $this->hasMany('Modules\Accounts\Models\User');
 
     }
 
