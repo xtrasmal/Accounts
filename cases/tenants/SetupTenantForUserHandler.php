@@ -22,17 +22,24 @@ class SetupTenantForUserHandler implements HandlerInterface
         $tenant = Tenant::register($command->user->id);
 
         $tenant->save();
-
         $tenant->users()->attach($command->user->id);
-
         $command->user->tenant_id = $tenant->id;
 
-        $tenant->TenantSetForUser($command->user);
-
-        $this->dispatcher->dispatch($tenant->releaseEvents());
-
-        return new SetupTenantForUserResponse($tenant);
+        $this->dispatch($command->user);
+        return $this->respond($command->user);
 
     }
 
+    public function dispatch($entity)
+    {
+        $tenant = new Tenant();
+        $tenant->TenantSetForUser($entity);
+        $this->dispatcher->dispatch($tenant->releaseEvents());
+    }
+
+    public function respond($response)
+    {
+
+        return new SetupTenantForUserResponse($response);
+    }
 }

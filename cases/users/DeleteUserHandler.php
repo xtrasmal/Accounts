@@ -10,14 +10,24 @@ class DeleteUserHandler extends BaseUserHandler implements HandlerInterface
     {
 
         $user       = $this->repo->getById($command->id);
-        $response   = $this->repo->delete($user);
+        $this->repo->delete($user);
 
-        $user = new User;
-        $user->deleteUser($user);
-        $this->dispatcher->dispatch($user->releaseEvents());
+        $this->dispatch($user);
 
+        return $this->respond($user);
+
+    }
+
+    public function dispatch($entity)
+    {
+        $entity = new User;
+        $entity->deleteUser($entity);
+        $this->dispatcher->dispatch($entity->releaseEvents());
+    }
+
+    public function respond($response)
+    {
         return new DeleteUserResponse($response);
-
     }
 
 }

@@ -1,9 +1,7 @@
 <?php namespace Modules\Accounts\Cases\Users;
 
-use Illuminate\Support\Facades\Log;
 use Modules\Accounts\Models\User;
 use Ill\Core\CommandBus\Interfaces\HandlerInterface;
-use Monolog\Logger;
 
 class ReadAllUsersHandler extends BaseUserHandler implements HandlerInterface
 {
@@ -13,13 +11,26 @@ class ReadAllUsersHandler extends BaseUserHandler implements HandlerInterface
     {
 
         $response = $this->repo->all();
+        $this->dispatch($response);
 
-        $user = new User;
-        $user->readAllUsers($user);
-        $this->dispatcher->dispatch($user->releaseEvents());
+        return $this->respond($response);
 
+    }
+
+    public function dispatch($entity)
+    {
+        $entity = new User;
+        $entity->readAllUsers($entity);
+        $this->dispatcher->dispatch($entity->releaseEvents());
+    }
+
+    /**
+     * @param $response
+     * @return ReadAllUsersResponse
+     */
+    public function respond($response)
+    {
         return new ReadAllUsersResponse($response);
-
     }
 
 }

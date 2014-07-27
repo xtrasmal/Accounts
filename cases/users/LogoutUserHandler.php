@@ -8,14 +8,31 @@ class LogoutUserHandler extends BaseUserHandler implements HandlerInterface
 
     public function handle($command)
     {
-        $this->repo->logout();
+        $logout = $this->repo->logout();
 
-        $user = new User();
-        $user->logoutUser($user);
-        $this->dispatcher->dispatch($user->releaseEvents());
+        $response = $this->dispatch($logout);
 
-        return new LogoutUserResponse();
+        return $this->respond($response);
 
     }
 
+    /**
+     * @return User
+     */
+    public function dispatch($entity)
+    {
+        $entity = new User();
+        $entity->logoutUser($entity);
+        $this->dispatcher->dispatch($entity->releaseEvents());
+        return $entity;
+    }
+
+    /**
+     * @param $response
+     * @return LogoutUserResponse
+     */
+    public function respond($response)
+    {
+        return new LogoutUserResponse($response);
+    }
 }

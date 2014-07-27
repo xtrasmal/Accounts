@@ -1,12 +1,16 @@
 <?php namespace Modules\Accounts\Cases\Users;
 
+use Modules\Accounts\Models\User;
+
 class LogoutUserResponse
 {
 
-    public function __construct()
+    protected $user;
+
+    public function __construct(User $user)
     {
 
-        return true;
+        $this->user = $user;
 
     }
 

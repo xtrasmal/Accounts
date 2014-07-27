@@ -19,17 +19,23 @@ class ResetUserPasswordHandler extends BaseUserHandler implements HandlerInterfa
                 'token'                 =>  $command->token
             ];
 
-            $this->repo->resetPassword($credentials);
-
-
-            $user->resetUserPassword($user);
-            $this->dispatcher->dispatch($user->releaseEvents());
-
-            return new ResetUserPasswordResponse($user);
+            $response = $this->repo->resetPassword($credentials);
+            $this->dispatch($user);
+            return $this->respond($response);
         }
 
         return false;
 
     }
 
+    public function dispatch($entity)
+    {
+        $entity->resetUserPassword($entity);
+        $this->dispatcher->dispatch($entity->releaseEvents());
+    }
+
+    public function respond($response)
+    {
+        return new ResetUserPasswordResponse($response);
+    }
 }

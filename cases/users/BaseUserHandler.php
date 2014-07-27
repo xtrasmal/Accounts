@@ -8,7 +8,6 @@ class BaseUserHandler
 
     protected $repo;
     protected $dispatcher;
-    protected $validator;
 
     public function __construct(UserRepository $repo,
                                 Dispatcher $dispatcher)

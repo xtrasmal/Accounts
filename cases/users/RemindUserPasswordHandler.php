@@ -8,9 +8,9 @@ use Modules\Accounts\Validators\ForgotPasswordValidator;
 class RemindUserPasswordHandler implements HandlerInterface
 {
 
-    private $repo;
-    private $dispatcher;
-    private $validator;
+    protected $repo;
+    protected $dispatcher;
+    protected $validator;
 
     public function __construct(UserRepository $repo,
                                 Dispatcher $dispatcher,
@@ -32,15 +32,25 @@ class RemindUserPasswordHandler implements HandlerInterface
 
         if($user){
 
-            $user->remindUserPassword($user);
-            $this->dispatcher->dispatch($user->releaseEvents());
-            $this->repo->remindPassword(['email' => $command->email]);
+            $user->remindPassword(['email' => $command->email]);
 
-            return new RemindUserPasswordResponse($user);
+            $this->dispatch($user);
+
+            return $this->respond($user);
         }
 
         return false;
 
     }
 
+    public function dispatch($entity)
+    {
+        $entity->remindUserPassword($entity);
+        $this->dispatcher->dispatch($entity->releaseEvents());
+    }
+
+    public function respond($response)
+    {
+        return new RemindUserPasswordResponse($response);
+    }
 }

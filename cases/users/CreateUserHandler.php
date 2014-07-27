@@ -15,14 +15,24 @@ class CreateUserHandler extends BaseUserHandler implements HandlerInterface
             'password'  => $command->password,
         ]);
 
+        $response = $this->repo->createUserForExistingTenant($user);
 
-        $this->repo->createUserForExistingTenant($user);
-
-        $user->createUser($user);
-        $this->dispatcher->dispatch($user->releaseEvents());
-
-        return new CreateUserResponse($user);
+        $this->dispatch($user);
+        return $this->respond($response);
 
     }
 
+    public function dispatch($entity)
+    {
+        $entity>createUser($entity);
+        $this->dispatcher->dispatch($entity->releaseEvents());
+        return $entity;
+    }
+
+    public function respond($response)
+    {
+
+        return new CreateUserResponse($response);
+
+    }
 }

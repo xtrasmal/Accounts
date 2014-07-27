@@ -29,7 +29,7 @@ class UserController extends BaseController
 
         $request = new ReadUserRequest($id);
 
-        $response = $this->bus->execute($request);
+        $this->bus->execute($request);
 
         return $this->redirectAction('UserViewController@singleUserView');
 

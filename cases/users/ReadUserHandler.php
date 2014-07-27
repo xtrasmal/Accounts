@@ -11,12 +11,26 @@ class ReadUserHandler extends BaseUserHandler implements HandlerInterface
 
         $response = $this->repo->getById($request->id);
 
-        $user = new User;
-        $user->readUser($user);
-        $this->dispatcher->dispatch($user->releaseEvents());
+        $this->dispatch($response);
 
+        return $this->respond($response);
+
+    }
+
+    public function dispatch($entity)
+    {
+        $entity = new User;
+        $entity->readUser($entity);
+        $this->dispatcher->dispatch($entity->releaseEvents());
+    }
+
+    /**
+     * @param $response
+     * @return ReadUserResponse
+     */
+    public function respond($response)
+    {
         return new ReadUserResponse($response);
-
     }
 
 }

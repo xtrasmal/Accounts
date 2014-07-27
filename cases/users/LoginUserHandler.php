@@ -8,20 +8,30 @@ class LoginUserHandler extends BaseUserHandler implements HandlerInterface
 
     public function handle($command)
     {
-
-        if($this->repo->login($command->email, $command->password))
+        $login = $this->repo->login($command->email, $command->password);
+        if($login)
         {
+            $entity = $this->repo->getByEmail($command->email);
 
-            $user = new User();
-            $user->loginUser($user);
+            $this->dispatch($entity);
 
-            $this->dispatcher->dispatch($user->releaseEvents());
-
-            return new LoginUserResponse($user);
+            return $this->respond($entity);
 
         }
 
         return false;
+    }
+
+    public function dispatch($entity)
+    {
+        $entity = new User();
+        $entity->loginUser($entity);
+        $this->dispatcher->dispatch($entity->releaseEvents());
+    }
+
+    public function respond($response)
+    {
+        return new LoginUserResponse($response);
     }
 
 }

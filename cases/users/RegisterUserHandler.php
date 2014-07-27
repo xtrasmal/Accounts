@@ -16,13 +16,19 @@ class RegisterUserHandler extends BaseUserHandler implements HandlerInterface
         ]);
 
         $this->repo->save($user);
+        $this->dispatch($user);
 
-        $user->registerUser($user);
-        $this->dispatcher->dispatch($user->releaseEvents());
-
-        return new RegisterUserResponse($user);
-
+        return $this->respond($user);
     }
 
+    public function dispatch($entity)
+    {
+        $entity->registerUser($entity);
+        $this->dispatcher->dispatch($entity->releaseEvents());
+    }
 
+    public function respond($response)
+    {
+        return new RegisterUserResponse($response);
+    }
 }
