@@ -5,6 +5,7 @@ use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Ill\Core\Events\EventGenerator;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Accounts\Events\TenantConnectedToUser;
 use Modules\Accounts\Events\UserLoggedOutEvent;
 use Modules\Accounts\Events\UserReadEvent;
 use Modules\Accounts\Events\UsersReadEvent;
@@ -108,7 +109,13 @@ class User extends Model implements UserInterface, RemindableInterface
         return $user;
 
     }
+    public function connectTenant($user)
+    {
 
+        $this->raise(new TenantConnectedToUser($user));
+        return $user;
+
+    }
     public function resetUserPassword($user)
     {
 

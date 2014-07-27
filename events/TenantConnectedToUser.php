@@ -3,7 +3,7 @@
 use Modules\Accounts\Models\User;
 use Ill\Core\Events\Interfaces\EventInterface;
 
-class UserRegisteredEvent implements EventInterface
+class TenantConnectedToUser implements EventInterface
 {
 
     public $user;
@@ -12,13 +12,12 @@ class UserRegisteredEvent implements EventInterface
     {
 
         $this->user = $user;
-
     }
 
     public function getName()
     {
 
-        return 'User.Registered';
+        return 'Tenant.Connected.To.User';
 
     }
 

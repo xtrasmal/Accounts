@@ -1,5 +1,6 @@
 <?php namespace Modules\Accounts;
 
+use Modules\Accounts\Listeners\ConnectTenantToUser;
 use Modules\Accounts\Models\User,
     Illuminate\Foundation\AliasLoader,
     Illuminate\Support\ServiceProvider,
@@ -68,7 +69,8 @@ class AccountsServiceProvider extends ServiceProvider
     {
 
         return [
-            'userRegistered'=>  new SetupTenantForUser($bus)
+            'User.Registered'     =>  new SetupTenantForUser($bus),
+            'Tenant.Set.For.User' =>  new ConnectTenantToUser($bus)
         ];
     }
 

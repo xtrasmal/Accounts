@@ -3,22 +3,24 @@
 use Modules\Accounts\Models\User;
 use Ill\Core\Events\Interfaces\EventInterface;
 
-class UserRegisteredEvent implements EventInterface
+class TenantSetForUser implements EventInterface
 {
 
-    public $user;
+    public $userid;
+    public $tenantid;
 
     public function __construct(User $user)
     {
 
-        $this->user = $user;
 
+        $this->userid = $user->id;
+        $this->tenantid = $user->tenant_id;
     }
 
     public function getName()
     {
 
-        return 'User.Registered';
+        return 'Tenant.Set.For.User';
 
     }
 

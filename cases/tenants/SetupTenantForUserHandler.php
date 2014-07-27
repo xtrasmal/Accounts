@@ -25,6 +25,12 @@ class SetupTenantForUserHandler implements HandlerInterface
 
         $tenant->users()->attach($command->user->id);
 
+        $command->user->tenant_id = $tenant->id;
+
+        $tenant->TenantSetForUser($command->user);
+
+        $this->dispatcher->dispatch($tenant->releaseEvents());
+
         return new SetupTenantForUserResponse($tenant);
 
     }
