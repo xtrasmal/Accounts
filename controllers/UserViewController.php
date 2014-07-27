@@ -39,6 +39,11 @@ class UserViewController extends BaseController
         return View::make('accounts.all')->with('accounts', $response->users);
     }
 
+    public function createUserView()
+    {
+        return View::make('accounts.create');
+    }
+
     public function singleUserView()
     {
 

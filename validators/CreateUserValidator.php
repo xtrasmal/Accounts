@@ -27,7 +27,7 @@ class CreateUserValidator
             [
                 'email'     => 'required|email',
                 'name'      => 'required',
-                'password'  => 'required|min:10',
+                'password'  => 'required',
             ]
         );
 

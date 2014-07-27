@@ -25,4 +25,6 @@ interface UserRepository
 
     public function logout();
 
+    public function createUserForExistingTenant(User $user);
+
 }

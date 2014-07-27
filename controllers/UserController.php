@@ -1,7 +1,7 @@
 <?php namespace Modules\Accounts\Controllers;
 
 use Ill\System\Base\BaseController;
-use Illuminate\Support\Facades\Input;
+use Input,Hash;
 use Modules\Accounts\Cases\Users\ReadUserRequest;
 use Modules\Accounts\Cases\Users\CreateUserRequest;
 use Modules\Accounts\Cases\Users\LogoutUserRequest;
@@ -20,7 +20,7 @@ class UserController extends BaseController
 
         $this->bus->execute($command);
 
-        return $this->redirectAction('UserViewController@allUsersView');
+        return $this->redirectBack();
 
     }
 
@@ -42,7 +42,7 @@ class UserController extends BaseController
 
         $this->bus->execute($command);
 
-        return $this->redirectAction('UserViewController@allUsersView');
+        return $this->redirectBack();
 
     }
 

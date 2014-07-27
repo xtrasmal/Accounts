@@ -128,7 +128,17 @@ class EloquentUserRepository extends TenantRepository implements UserRepository
 
     public function save(User $model)
     {
+
         $model->password = Hash::make($model->password);
+        $model->save();
+
+    }
+
+    public function createUserForExistingTenant(User $model)
+    {
+
+        $model->password = Hash::make($model->password);
+        $model->tenant_id = $this->scope->id();
         $model->save();
 
     }

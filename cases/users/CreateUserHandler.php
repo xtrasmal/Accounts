@@ -1,33 +1,13 @@
 <?php namespace Modules\Accounts\Cases\Users;
 
-use Ill\Core\Events\Dispatcher;
 use Modules\Accounts\Models\User;
 use Ill\Core\CommandBus\Interfaces\HandlerInterface;
-use Modules\Accounts\Validators\CreateUserValidator;
-use Modules\Accounts\Repositories\UserRepository;
 
-class CreateUserHandler implements HandlerInterface
+class CreateUserHandler extends BaseUserHandler implements HandlerInterface
 {
-
-    private $repo;
-    private $dispatcher;
-    private $validator;
-
-    public function __construct(UserRepository $repo,
-                                Dispatcher $dispatcher,
-                                CreateUserValidator $validator)
-    {
-
-        $this->repo = $repo;
-        $this->dispatcher = $dispatcher;
-        $this->validator = $validator;
-
-    }
 
     public function handle($command)
     {
-
-        $this->validator->validate($command);
 
         $user = User::register([
             'email'     => $command->email,
@@ -35,9 +15,12 @@ class CreateUserHandler implements HandlerInterface
             'password'  => $command->password,
         ]);
 
+
+        $this->repo->createUserForExistingTenant($user);
+
         $user->createUser($user);
         $this->dispatcher->dispatch($user->releaseEvents());
-        $this->repo->save($user);
+
         return new CreateUserResponse($user);
 
     }

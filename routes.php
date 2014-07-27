@@ -12,7 +12,6 @@ Route::group(
         Route::get('register',      ['as' => 'accounts.register', 'uses' => 'UserViewController@registerView']);
         Route::get('forgot',        ['as' => 'accounts.forgot', 'uses' => 'UserViewController@forgotView']);
         Route::get('reset/{token}', ['as' => 'accounts.reset.password', 'uses' => 'UserViewController@resetView']);
-        Route::get('{id}',          ['as' => 'accounts.show', 'uses' => 'UserController@readUser']);
     }
 );
 // CSRF
@@ -40,7 +39,9 @@ Route::group(
     ],
     function()
     {
-        Route::get('/',             ['as'=>'accounts.all', 'uses'=>'UserViewController@allUsersView']);
+        Route::get('/',             ['as'=>'accounts.all',      'uses'=>'UserViewController@allUsersView']);
+        Route::get('create',        ['as'=>'accounts.create',   'uses'=>'UserViewController@createUserView']);
+        Route::post('create',       ['as'=>'accounts.create',   'uses'=>'CreateUserFormController@createUser']);
     }
 );
 
